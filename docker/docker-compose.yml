@@ -1,0 +1,19 @@
+version: '3.4'
+services: 
+  test-ubuntu:
+    container_name: charlie-ubuntu
+    #image: jrei/systemd-ubuntu:18.04
+    image: ubuntu:18.04
+    ports:
+      - "80:80"
+    command: >
+      sh -cx "apt-get update &&
+              apt-get install -y git &&
+              apt-get install -y sudo &&
+              sh /install/install.sh
+              sleep infinity"
+    volumes:
+      - ./install:/install
+    cap_add:
+      - NET_ADMIN
+    privileged: true 
